@@ -164,7 +164,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4f3db9774bc08d43a8c29078e2d997c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tankPrefab: {fileID: 8189284322515845707, guid: 280e9b5c2e510b94fbd34d18af50425b,
+  tankView: {fileID: 2945458617992514227, guid: 280e9b5c2e510b94fbd34d18af50425b,
     type: 3}
 --- !u!1 &1179543937
 GameObject:
