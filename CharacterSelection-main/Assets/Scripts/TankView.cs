@@ -8,6 +8,7 @@ public class TankView : MonoBehaviour
 
     private float movement;
     private float rotation;
+    public MeshRenderer[] childs;
 
     [SerializeField] private Rigidbody rb;
 
@@ -45,5 +46,14 @@ public class TankView : MonoBehaviour
     public Rigidbody GetRigidBody()
     {
         return rb;
+    }
+
+    public void changeColor(Material color)
+    {
+        for (int i = 0; i < childs.Length; i++)
+        {
+            childs[i].material = color;
+        }
+
     }
 }
