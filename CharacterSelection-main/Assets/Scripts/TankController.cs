@@ -16,10 +16,10 @@ public class TankController
 
         rb = this.tankView.GetRigidBody();
 
-        tankModel.SetTrankController(this);
+        this.tankModel.SetTrankController(this);
         this.tankView.SetTrankController(this);
 
-        tankView.changeColor(tankModel.color);
+        this.tankView.changeColor(tankModel.color);
 
     }
 
