@@ -11,7 +11,7 @@ public class EnemyView : MonoBehaviour
 
     [SerializeField] private float targetDistance;
 
-    [SerializeField] private Transform player;
+    public Transform player;
     private Rigidbody rb;
     private Vector3 targetDirection;
 
@@ -59,7 +59,7 @@ public class EnemyView : MonoBehaviour
         {
             enemyController.UpdateTargetDirection();
             enemyController.RotateTowardsTarget();
-            enemyController.SetVelocity();
+            //enemyController.SetVelocity();
         }
     }
 

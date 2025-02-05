@@ -16,7 +16,8 @@ public class TankView : MonoBehaviour
     {
         GameObject cam = GameObject.Find("Main Camera");
         cam.transform.SetParent(transform);
-        cam.transform.position = new Vector3(0f, 3f, -4f);
+        cam.transform.position = new Vector3(0f, 9f, -9f);
+        
     }
 
 

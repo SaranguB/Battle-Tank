@@ -1,5 +1,6 @@
 ﻿
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemyController
 {
@@ -9,6 +10,8 @@ public class EnemyController
     private Rigidbody enemyRB;
     private Vector3 targetDirection;
 
+    private NavMeshAgent navMeshAgent;
+
     public EnemyController(EnemyView enemyView, EnemyModel enemyModel, BoxCollider spawnArea, Transform player)
     {
         this.enemyModel = enemyModel;
@@ -16,6 +19,8 @@ public class EnemyController
         this.enemyView = SpawnEnemy(enemyView, spawnArea);
 
         enemyRB = this.enemyView.GetRigidBody();
+
+        navMeshAgent = this.enemyView.GetComponent<NavMeshAgent>();
 
         this.enemyView.SetEnemyController(this, player);
     
@@ -42,13 +47,19 @@ public class EnemyController
 
     public void UpdateTargetDirection()
     {
-        if(!enemyView.isPlayerFound)
+
+        if (!enemyView.isPlayerFound)
         {
-            targetDirection = enemyView.directionToPlayer;
+            navMeshAgent.isStopped = false;
+            navMeshAgent.SetDestination(enemyView.player.position);
         }
         else
         {
-            targetDirection = Vector3.zero;
+            targetDirection = enemyView.directionToPlayer;
+            navMeshAgent.SetDestination(enemyView.transform.position);
+
+            //Debug.Log("else");
+            navMeshAgent.isStopped = true;
         }
     }
 
@@ -59,12 +70,16 @@ public class EnemyController
             return;
         }
 
-        Quaternion targetRotation = Quaternion.LookRotation(targetDirection);
-        Quaternion rotation = Quaternion.RotateTowards(enemyView.transform.rotation, targetRotation, enemyModel.rotationSpeed *Time.deltaTime);
-        enemyRB.MoveRotation(rotation);
+        if (enemyView.isPlayerFound)
+        {
+            Debug.Log("hi");
+            Quaternion targetRotation = Quaternion.LookRotation(targetDirection);
+            Quaternion rotation = Quaternion.RotateTowards(enemyView.transform.rotation, targetRotation, enemyModel.rotationSpeed * Time.deltaTime);
+           enemyView.transform.rotation = rotation;
+        }
     }
 
-    public void SetVelocity()
+   /* public void SetVelocity()
     {
         if(targetDirection == Vector3.zero)
         {
@@ -74,5 +89,5 @@ public class EnemyController
         {
             enemyRB.velocity = enemyView.transform.forward * enemyModel.speed;
         }
-    }
+    }*/
 }
