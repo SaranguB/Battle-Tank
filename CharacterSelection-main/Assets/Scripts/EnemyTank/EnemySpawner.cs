@@ -8,7 +8,7 @@ public class EnemySpawner : MonoBehaviour
     public float movementSpeed;
     public float rotationSpeed;
 
-    [SerializeField] private BoxCollider spawnArea;
+    [SerializeField] private List<BoxCollider> spawnAreas;
 
     EnemyController enemyController;
     [SerializeField] private EnemyView enemyView;
@@ -19,6 +19,7 @@ public class EnemySpawner : MonoBehaviour
 
     void Start()
     {
+
     }
 
     public void SpawnEnemy()
@@ -26,11 +27,13 @@ public class EnemySpawner : MonoBehaviour
         player = FindObjectOfType<TankView>().transform;
         EnemyModel enemyModel = new EnemyModel(movementSpeed, rotationSpeed);
 
-        enemyController = new EnemyController(enemyView, enemyModel, spawnArea, player);
+        int spawned = Random.Range(0, spawnAreas.Count -1); 
+
+        enemyController = new EnemyController(enemyView, enemyModel, spawnAreas[spawned], player);
 
     }
 
-    
+
     void Update()
     {
 
