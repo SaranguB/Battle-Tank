@@ -23,7 +23,7 @@ public class EnemyController
         navMeshAgent = this.enemyView.GetComponent<NavMeshAgent>();
 
         this.enemyView.SetEnemyController(this, player);
-    
+
     }
 
     public EnemyView SpawnEnemy(EnemyView enemyView, BoxCollider spawnArea)
@@ -65,29 +65,29 @@ public class EnemyController
 
     public void RotateTowardsTarget()
     {
-        if(targetDirection == Vector3.zero)
+        if (targetDirection == Vector3.zero)
         {
             return;
         }
 
         if (enemyView.isPlayerFound)
         {
-            Debug.Log("hi");
+            
             Quaternion targetRotation = Quaternion.LookRotation(targetDirection);
             Quaternion rotation = Quaternion.RotateTowards(enemyView.transform.rotation, targetRotation, enemyModel.rotationSpeed * Time.deltaTime);
-           enemyView.transform.rotation = rotation;
+            enemyView.transform.rotation = rotation;
         }
     }
 
-   /* public void SetVelocity()
-    {
-        if(targetDirection == Vector3.zero)
-        {
-            enemyRB.velocity = Vector3.zero;
-        }
-        else
-        {
-            enemyRB.velocity = enemyView.transform.forward * enemyModel.speed;
-        }
-    }*/
+    /* public void SetVelocity()
+     {
+         if(targetDirection == Vector3.zero)
+         {
+             enemyRB.velocity = Vector3.zero;
+         }
+         else
+         {
+             enemyRB.velocity = enemyView.transform.forward * enemyModel.speed;
+         }
+     }*/
 }

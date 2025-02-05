@@ -623,6 +623,8 @@ MonoBehaviour:
   minLaunchForce: 15
   maxLaunchForce: 30
   maxChargeTime: 0.75
+  bulletView: {fileID: -4559396563828265296, guid: 2feb97c88d622234ab2c397c4b98326d,
+    type: 3}
 --- !u!1 &8189284322515845709
 GameObject:
   m_ObjectHideFlags: 0

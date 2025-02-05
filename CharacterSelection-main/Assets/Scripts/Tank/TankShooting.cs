@@ -12,6 +12,9 @@ public class TankShooting : MonoBehaviour
     [SerializeField] private float maxLaunchForce = 30f;
     [SerializeField] float maxChargeTime = .75f;
 
+    BulletController bulletController;
+    BulletModel bulletModel;
+    [SerializeField] BulletView bulletView;
 
 
     private string fireButton;
@@ -22,7 +25,7 @@ public class TankShooting : MonoBehaviour
     private void OnEnable()
     {
         //Debug.Log("enabled");
-        currentLaunchForce = minLaunchForce;
+        SetCurrentLaunchForce(minLaunchForce);
         aimSlider.value = minLaunchForce;
     }
 
@@ -39,13 +42,18 @@ public class TankShooting : MonoBehaviour
 
         if (currentLaunchForce >= maxLaunchForce && !fired)
         {
-            currentLaunchForce = maxLaunchForce;
+            SetCurrentLaunchForce(maxLaunchForce);
             Fire();
+            fired = true;
+            SetCurrentLaunchForce(minLaunchForce);
+
+
         }
+
         else if (Input.GetButtonDown(fireButton))
         {
             fired = false;
-            currentLaunchForce = minLaunchForce;
+            SetCurrentLaunchForce(minLaunchForce);
         }
         else if (Input.GetButton(fireButton) && !fired)
         {
@@ -55,18 +63,27 @@ public class TankShooting : MonoBehaviour
         else if (Input.GetButtonUp(fireButton) && !fired)
         {
             Fire();
+            fired = true;
+            SetCurrentLaunchForce(minLaunchForce);
+           
+
         }
 
     }
 
+    void SetCurrentLaunchForce(float force)
+    {
+        currentLaunchForce = force;
+    }
+
     private void Fire()
     {
-        fired = true;
+        bulletModel = new BulletModel(currentLaunchForce);
 
-        Rigidbody shellInstance = Instantiate(shell, fireTransform.position, fireTransform.rotation) as Rigidbody;
+        bulletController = new BulletController(bulletView,bulletModel,fireTransform);
 
-        shellInstance.velocity = currentLaunchForce * fireTransform.forward;
 
-        currentLaunchForce = minLaunchForce;
+      
+
     }
 }
