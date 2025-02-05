@@ -6,11 +6,13 @@ public class TankController
 
     private TankModel tankModel;
     private TankView tankView;
+    
 
     private Rigidbody rb;
 
     public TankController(TankModel tankModel, TankView tankView)
     {
+
         this.tankModel = tankModel;
         this.tankView = GameObject.Instantiate<TankView>(tankView);
 
@@ -20,6 +22,8 @@ public class TankController
         this.tankView.SetTrankController(this);
 
         this.tankView.changeColor(tankModel.color);
+
+        
 
     }
 
