@@ -5,6 +5,15 @@ using UnityEngine;
 
 public class EnemyView : MonoBehaviour
 {
+
+    public enum EnemyState
+    {
+        DEFAULT,
+        ALIVE,
+        DEAD,
+    }
+    public EnemyState enemyState;
+
     private EnemyController enemyController;
     public Vector3 directionToPlayer { get; private set; }
     public bool isPlayerFound { get; private set; }
@@ -24,11 +33,12 @@ public class EnemyView : MonoBehaviour
         rb = GetComponent<Rigidbody>();
 
         tankExplosion = particleEffect.GetComponent<ParticleSystem>();
+
     }
 
     void Start()
     {
-
+        enemyState = EnemyState.ALIVE;
     }
 
 
@@ -43,15 +53,14 @@ public class EnemyView : MonoBehaviour
             }
         }
 
-        if (enemyController.GetHealth() <= 0)
+        if (enemyController.GetHealth() <= 0 && enemyState == EnemyState.ALIVE)
         {
 
-            if(tankExplosion==null)
-            {
-                Debug.Log("null");
-            }
+            
+            enemyState = EnemyState.DEAD;
+            tankExplosion.Play();
 
-            //StartCoroutine(DestroyEnemyTank(3));
+            StartCoroutine(DestroyEnemyTank(3));
 
         }
 
@@ -105,6 +114,8 @@ public class EnemyView : MonoBehaviour
 
         // Debug.Log($"SetEnemyController called on: {gameObject.name}");
 
+        enemyState = EnemyState.ALIVE;
+
         this.enemyController = enemyController;
         this.player = player;
     }
@@ -113,7 +124,6 @@ public class EnemyView : MonoBehaviour
     {
         if (other.gameObject.GetComponent<BulletView>() != null)
         {
-            tankExplosion.Play();
 
             enemyController.TakeDamage(10);
 

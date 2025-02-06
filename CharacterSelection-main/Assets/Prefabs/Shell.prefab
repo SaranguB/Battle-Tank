@@ -223,7 +223,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: beeab4e75f8809d458a53dc37424831b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletParticleEffet: {fileID: 195792, guid: a8efdf6a53b9cc9448e1e2514b573497, type: 3}
+  bulletParticleEffet: {fileID: 3172979089146480320}
   collider: {fileID: 85779081}
 --- !u!1001 &3172979089146608144
 PrefabInstance:
@@ -290,6 +290,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a8efdf6a53b9cc9448e1e2514b573497, type: 3}
+--- !u!1 &3172979089146480320 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 195792, guid: a8efdf6a53b9cc9448e1e2514b573497,
+    type: 3}
+  m_PrefabInstance: {fileID: 3172979089146608144}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &3172979089146648410 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 486730, guid: a8efdf6a53b9cc9448e1e2514b573497,
