@@ -5,12 +5,12 @@ using UnityEngine.UI;
 
 public class TankShooting : MonoBehaviour
 {
-    [SerializeField] private Rigidbody shell;
+
     [SerializeField] private Transform fireTransform;
     [SerializeField] private Slider aimSlider;
-    [SerializeField] private float minLaunchForce = 15f;
-    [SerializeField] private float maxLaunchForce = 30f;
-    [SerializeField] float maxChargeTime = .75f;
+    private float minLaunchForce = 15f;
+    private float maxLaunchForce = 30f;
+    private float maxChargeTime = .75f;
 
     BulletController bulletController;
     BulletModel bulletModel;
@@ -65,7 +65,7 @@ public class TankShooting : MonoBehaviour
             Fire();
             fired = true;
             SetCurrentLaunchForce(minLaunchForce);
-           
+
 
         }
 
@@ -80,10 +80,10 @@ public class TankShooting : MonoBehaviour
     {
         bulletModel = new BulletModel(currentLaunchForce);
 
-        bulletController = new BulletController(bulletView,bulletModel,fireTransform);
+        bulletController = new BulletController(bulletView, bulletModel, fireTransform);
 
 
-      
+
 
     }
 }

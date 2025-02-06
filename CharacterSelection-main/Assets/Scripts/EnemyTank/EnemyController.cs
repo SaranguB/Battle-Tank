@@ -50,16 +50,18 @@ public class EnemyController
 
         if (!enemyView.isPlayerFound)
         {
+           
             navMeshAgent.isStopped = false;
             navMeshAgent.SetDestination(enemyView.player.position);
         }
         else
         {
+            navMeshAgent.isStopped = true;
+
             targetDirection = enemyView.directionToPlayer;
             navMeshAgent.SetDestination(enemyView.transform.position);
 
-            //Debug.Log("else");
-            navMeshAgent.isStopped = true;
+
         }
     }
 
@@ -77,6 +79,17 @@ public class EnemyController
             Quaternion rotation = Quaternion.RotateTowards(enemyView.transform.rotation, targetRotation, enemyModel.rotationSpeed * Time.deltaTime);
             enemyView.transform.rotation = rotation;
         }
+    }
+
+    public void TakeDamage(int Damage)
+    {
+        enemyModel.health -= Damage;
+        Debug.Log(enemyModel.health);
+    }
+
+    public int GetHealth()
+    {
+        return enemyModel.health;
     }
 
     /* public void SetVelocity()

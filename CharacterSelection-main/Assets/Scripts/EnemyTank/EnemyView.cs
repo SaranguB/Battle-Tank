@@ -15,11 +15,15 @@ public class EnemyView : MonoBehaviour
     private Rigidbody rb;
     private Vector3 targetDirection;
 
+    [SerializeField] private GameObject particleEffect;
+    ParticleSystem tankExplosion;
 
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
+
+        tankExplosion = particleEffect.GetComponent<ParticleSystem>();
     }
 
     void Start()
@@ -33,19 +37,52 @@ public class EnemyView : MonoBehaviour
 
         if (player != null)
         {
-            Vector3 enemyToPlayerVector = player.position - transform.position;
-            directionToPlayer = enemyToPlayerVector.normalized;
-
-            if (enemyToPlayerVector.magnitude <= targetDistance)
+            if (player.GetComponent<TankView>() != null)
             {
-                isPlayerFound = true;
-            }
-            else
-            {
-                isPlayerFound = false;
+                CheckForPlayer();
             }
         }
 
+        if (enemyController.GetHealth() <= 0)
+        {
+
+            if(tankExplosion==null)
+            {
+                Debug.Log("null");
+            }
+
+            //StartCoroutine(DestroyEnemyTank(3));
+
+        }
+
+    }
+
+    private IEnumerator DestroyEnemyTank(int time)
+    {
+        yield return new WaitForSeconds(time);
+
+        Destroy(gameObject);
+
+    }
+
+    private void CheckForPlayer()
+    {
+        Vector3 enemyToPlayerVector = player.position - transform.position;
+        directionToPlayer = enemyToPlayerVector.normalized;
+        float distanceToPlayer = enemyToPlayerVector.magnitude;
+
+        float buffer = .2f;
+
+        if (distanceToPlayer <= targetDistance - buffer)
+        {
+
+            isPlayerFound = true;
+        }
+        else if (distanceToPlayer >= targetDistance + buffer)
+        {
+
+            isPlayerFound = false;
+        }
     }
 
     private void FixedUpdate()
@@ -65,10 +102,22 @@ public class EnemyView : MonoBehaviour
 
     public void SetEnemyController(EnemyController enemyController, Transform player)
     {
+
         // Debug.Log($"SetEnemyController called on: {gameObject.name}");
 
         this.enemyController = enemyController;
         this.player = player;
+    }
+
+    private void OnCollisionEnter(Collision other)
+    {
+        if (other.gameObject.GetComponent<BulletView>() != null)
+        {
+            tankExplosion.Play();
+
+            enemyController.TakeDamage(10);
+
+        }
     }
 
     public Rigidbody GetRigidBody()

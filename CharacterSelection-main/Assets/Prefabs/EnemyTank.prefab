@@ -239,6 +239,7 @@ GameObject:
   - component: {fileID: 7328374573962612020}
   - component: {fileID: 2039789040480595179}
   - component: {fileID: -1861173755364398380}
+  - component: {fileID: -1583712801792652701}
   m_Layer: 8
   m_Name: EnemyTank
   m_TagString: Untagged
@@ -304,6 +305,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetDistance: 10
   player: {fileID: 8189284322515885995, guid: 280e9b5c2e510b94fbd34d18af50425b, type: 3}
+  particleEffect: {fileID: 151086, guid: ee49a9a8678ecf8468eb488e1ac8d42b, type: 3}
 --- !u!195 &-1861173755364398380
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -326,6 +328,21 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &-1583712801792652701
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8189284322515845707}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f314dc6585df80d439b2df7f4e2b9019, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletView: {fileID: -4559396563828265296, guid: 2feb97c88d622234ab2c397c4b98326d,
+    type: 3}
+  fireTransform: {fileID: 1583676678143179408}
 --- !u!1 &8189284322515845709
 GameObject:
   m_ObjectHideFlags: 0

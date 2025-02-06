@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BulletView : MonoBehaviour
@@ -9,9 +8,11 @@ public class BulletView : MonoBehaviour
     ParticleSystem bulletExplosion;
     BulletController bulletController;
 
-    
+    [SerializeField] private CapsuleCollider collider;
+
     void Start()
     {
+        bulletParticleEffet.SetActive(true);
 
        bulletExplosion = bulletParticleEffet.GetComponent<ParticleSystem>();
 
@@ -25,17 +26,19 @@ public class BulletView : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        
+
         //Debug.Log("collided");
         bulletExplosion.Play();
 
-
+         collider.isTrigger = true;
         StartCoroutine(DestroyGameObject());
     }
 
 
     private IEnumerator DestroyGameObject()
     {
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(1f);
 
         Destroy(gameObject);
     }
