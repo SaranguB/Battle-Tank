@@ -8,11 +8,13 @@ public class EnemyModel
 
     public float speed;
     public float rotationSpeed;
+    public int health;
 
-    public EnemyModel(float speed, float rotationSpeed)
+    public EnemyModel(float speed, float rotationSpeed, int health)
     {
         this.speed = speed;
         this.rotationSpeed = rotationSpeed;
+        this.health = health;
     }
 
 
@@ -20,4 +22,6 @@ public class EnemyModel
     {
         this.enemyController = enemyController;
     }
+
+   
 }

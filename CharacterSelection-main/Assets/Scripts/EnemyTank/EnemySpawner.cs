@@ -7,6 +7,7 @@ public class EnemySpawner : MonoBehaviour
 
     public float movementSpeed;
     public float rotationSpeed;
+    public int health = 50;
 
     [SerializeField] private List<BoxCollider> spawnAreas;
 
@@ -25,7 +26,7 @@ public class EnemySpawner : MonoBehaviour
     public void SpawnEnemy()
     {
         player = FindObjectOfType<TankView>().transform;
-        EnemyModel enemyModel = new EnemyModel(movementSpeed, rotationSpeed);
+        EnemyModel enemyModel = new EnemyModel(movementSpeed, rotationSpeed, health);
 
         int spawned = Random.Range(0, spawnAreas.Count -1); 
 
