@@ -84,7 +84,7 @@ public class EnemyController
     public void TakeDamage(int Damage)
     {
         enemyModel.health -= Damage;
-        Debug.Log(enemyModel.health);
+       // Debug.Log(enemyModel.health);
     }
 
     public int GetHealth()
@@ -92,15 +92,5 @@ public class EnemyController
         return enemyModel.health;
     }
 
-    /* public void SetVelocity()
-     {
-         if(targetDirection == Vector3.zero)
-         {
-             enemyRB.velocity = Vector3.zero;
-         }
-         else
-         {
-             enemyRB.velocity = enemyView.transform.forward * enemyModel.speed;
-         }
-     }*/
+  
 }

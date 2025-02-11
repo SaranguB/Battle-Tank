@@ -60,7 +60,7 @@ public class EnemyView : MonoBehaviour
             enemyState = EnemyState.DEAD;
             tankExplosion.Play();
 
-            StartCoroutine(DestroyEnemyTank(3));
+            StartCoroutine(DestroyEnemyTank(1));
 
         }
 
