@@ -122,7 +122,8 @@ public class EnemyView : MonoBehaviour
 
     private void OnCollisionEnter(Collision other)
     {
-        if (other.gameObject.GetComponent<BulletView>() != null)
+        if (other.gameObject.GetComponent<BulletView>() != null &&
+            other.gameObject.layer != LayerMask.NameToLayer("EnemyShell"))
         {
 
             enemyController.TakeDamage(10);
