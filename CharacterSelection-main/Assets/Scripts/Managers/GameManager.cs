@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -47,12 +46,12 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if (playerState == PlayerState.DEAD && gameState == GameState.Credits)
+        if (playerState == PlayerState.DEAD && gameState == GameState.Credits && !playerWonUI.activeInHierarchy)
         {
             playerLostUI.SetActive(true);
         }
 
-        if (playerState == PlayerState.ALIVE && numberOfEnemies <= 0)
+        if (playerState == PlayerState.ALIVE && numberOfEnemies <= 0 && !playerLostUI.activeInHierarchy)
         {
             gameState = GameState.Credits;
             playerWonUI.SetActive(true);
@@ -98,8 +97,6 @@ public class GameManager : MonoBehaviour
     {
         if (numberOfEnemies > 0)
             numberOfEnemies--;
-
-      
     }
 
     public void LoadMenu()

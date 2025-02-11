@@ -1,13 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
 
-    public float movementSpeed;
-    public float rotationSpeed;
-    public int health = 50;
+    private float movementSpeed = 5;
+    private float rotationSpeed = 100;
+    private int health = 50;
 
     [SerializeField] private List<BoxCollider> spawnAreas;
 
@@ -16,12 +15,6 @@ public class EnemySpawner : MonoBehaviour
     private EnemyModel enemyModel;
 
     private Transform player;
-
-
-    void Start()
-    {
-
-    }
 
     public void SpawnEnemy()
     {
@@ -33,14 +26,6 @@ public class EnemySpawner : MonoBehaviour
         enemyController = new EnemyController(enemyView, enemyModel, spawnAreas[spawned], player);
 
     }
-
-
-    void Update()
-    {
-
-    }
-
-
 
 
 }

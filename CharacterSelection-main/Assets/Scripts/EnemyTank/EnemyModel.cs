@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class EnemyModel
 {
@@ -16,8 +14,6 @@ public class EnemyModel
         this.rotationSpeed = rotationSpeed;
         this.health = health;
     }
-
-
     public void SetEnemyController(EnemyController enemyController)
     {
         this.enemyController = enemyController;

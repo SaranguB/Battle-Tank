@@ -12,7 +12,6 @@ public class TankShooting : MonoBehaviour
     private float maxLaunchForce = 30f;
     private float maxChargeTime = .75f;
 
-
     BulletController bulletController;
     BulletModel bulletModel;
     [SerializeField] BulletView bulletView;
@@ -22,10 +21,8 @@ public class TankShooting : MonoBehaviour
     private float currentLaunchForce;
     private float chargeSpeed;
     private bool fired;
-
     private void OnEnable()
     {
-        //Debug.Log("enabled");
         SetCurrentLaunchForce(minLaunchForce);
         aimSlider.value = minLaunchForce;
     }
@@ -34,12 +31,10 @@ public class TankShooting : MonoBehaviour
     {
         fireButton = "Fire1";
         chargeSpeed = (maxLaunchForce - minLaunchForce) / maxChargeTime;
-        
     }
 
     private void Update()
     {
-
         aimSlider.value = minLaunchForce;
 
         if (currentLaunchForce >= maxLaunchForce && !fired)
@@ -48,8 +43,6 @@ public class TankShooting : MonoBehaviour
             Fire();
             fired = true;
             SetCurrentLaunchForce(minLaunchForce);
-
-
         }
 
         else if (Input.GetButtonDown(fireButton))
@@ -67,20 +60,15 @@ public class TankShooting : MonoBehaviour
             Fire();
             fired = true;
             SetCurrentLaunchForce(minLaunchForce);
-
-
         }
 
     }
-
     void SetCurrentLaunchForce(float force)
     {
         currentLaunchForce = force;
     }
-
     private void Fire()
     {
-
         if (GameManager.Instance.GetGameState() == GameState.Gameplay)
         {
             SoundManager.Instance.PlaySound(Sounds.SHOT);
@@ -89,6 +77,5 @@ public class TankShooting : MonoBehaviour
 
             bulletController = new BulletController(bulletView, bulletModel, fireTransform);
         }
-
     }
 }

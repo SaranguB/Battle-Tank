@@ -1,10 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class EnemyShooting : MonoBehaviour
 {
-
     private BulletController bulletController;
     private BulletModel bulletModel;
     [SerializeField] private BulletView bulletView;

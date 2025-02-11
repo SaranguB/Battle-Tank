@@ -1453,9 +1453,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 174638d98cd265344b25dc6fc34504c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 5
-  rotationSpeed: 100
-  health: 50
   spawnAreas:
   - {fileID: 1799566025}
   - {fileID: 835521443}
@@ -2652,6 +2649,22 @@ PrefabInstance:
     - target: {fileID: 4636951891528426, guid: 0aac6aef14f064c3fb626270cff2683b, type: 3}
       propertyPath: m_LocalPosition.z
       value: 12.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4676855886388002, guid: 0aac6aef14f064c3fb626270cff2683b, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.9953678
+      objectReference: {fileID: 0}
+    - target: {fileID: 4676855886388002, guid: 0aac6aef14f064c3fb626270cff2683b, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.671613
+      objectReference: {fileID: 0}
+    - target: {fileID: 4676855886388002, guid: 0aac6aef14f064c3fb626270cff2683b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -17.98
+      objectReference: {fileID: 0}
+    - target: {fileID: 4676855886388002, guid: 0aac6aef14f064c3fb626270cff2683b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.22
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0aac6aef14f064c3fb626270cff2683b, type: 3}

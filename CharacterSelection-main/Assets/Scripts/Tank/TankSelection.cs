@@ -1,13 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class TankSelection : MonoBehaviour
-{
-
+{ 
     [SerializeField] private TankSpawner tankSpawner;
     private GameManager gameManager;
-
     private void Start()
     {
         gameManager = FindObjectOfType<GameManager>();
@@ -15,21 +11,16 @@ public class TankSelection : MonoBehaviour
 
     public void BlueTankSelected()
     {
-       
         tankSpawner.CreateTank(TankTypes.BLUE_TANK);
         DisableGameObject();
 
         gameManager.SpawnEnemy();
-
     }
     public void GreenTankSelected()
     {
-      
-
         tankSpawner.CreateTank(TankTypes.GREEN_TANK);
         DisableGameObject();
         gameManager.SpawnEnemy();
-
     }
     public void RedTankSelected()
     {

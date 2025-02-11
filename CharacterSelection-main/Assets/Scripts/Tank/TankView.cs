@@ -5,32 +5,23 @@ using UnityEngine.UI;
 
 public class TankView : MonoBehaviour
 {
-
     public PlayerState playerState;
-   
-
     private TankController tankController;
-   [SerializeField] private Slider healthSlider;
-   // public Image fillImage;
-
+    [SerializeField] private Slider healthSlider;
     private float movement;
     private float rotation;
     public MeshRenderer[] childs;
 
     [SerializeField] private Rigidbody rb;
-
     [SerializeField] private ParticleSystem tankExplosion;
-
     void Start()
     {
         GameObject cam = GameObject.Find("Main Camera");
         cam.transform.SetParent(transform);
         cam.transform.position = new Vector3(0f, 9f, -9f);
         playerState = PlayerState.ALIVE;
-        
+
     }
-
-
     void Update()
     {
 
@@ -44,16 +35,15 @@ public class TankView : MonoBehaviour
             if (rotation != 0)
                 tankController.Rotate(rotation, tankController.GetTankModel().rotationSpeed);
         }
-        if(tankController.GetHealth() <= 0 && playerState == PlayerState.ALIVE)
+        if (tankController.GetHealth() <= 0 && playerState == PlayerState.ALIVE)
         {
             playerState = PlayerState.DEAD;
             tankController.SetPlayerState(playerState);
-           tankController.SetGameState(GameState.Credits);
+            tankController.SetGameState(GameState.Credits);
             tankExplosion.Play();
         }
 
     }
-
     void Movement()
     {
         movement = Input.GetAxis("Vertical");
@@ -76,7 +66,6 @@ public class TankView : MonoBehaviour
         {
             childs[i].material = color;
         }
-
     }
 
     private void OnCollisionEnter(Collision other)
@@ -85,8 +74,6 @@ public class TankView : MonoBehaviour
         {
             tankController.TakeDamage(10);
             healthSlider.value = tankController.GetHealth();
-
         }
     }
-    
 }
