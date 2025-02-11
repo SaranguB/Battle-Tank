@@ -55,18 +55,18 @@ public class EnemyView : MonoBehaviour
 
         if (enemyController.GetHealth() <= 0 && enemyState == EnemyState.ALIVE)
         {
-
             
             enemyState = EnemyState.DEAD;
+            enemyController.ReduceEnemyCount();
             tankExplosion.Play();
 
-            StartCoroutine(DestroyEnemyTank(1));
+            StartCoroutine(DestroyEnemyTank(.2f));
 
         }
 
     }
 
-    private IEnumerator DestroyEnemyTank(int time)
+    private IEnumerator DestroyEnemyTank(float time)
     {
         yield return new WaitForSeconds(time);
 

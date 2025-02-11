@@ -33,10 +33,13 @@ public class EnemyShooting : MonoBehaviour
 
     private void Fire()
     {
-        bulletModel = new BulletModel(LaunchForce);
+        if (GameManager.instance.GetGameState() == GameState.Gameplay)
+        {
+            bulletModel = new BulletModel(LaunchForce);
 
-        bulletController = new BulletController(bulletView, bulletModel, fireTransform);
+            bulletController = new BulletController(bulletView, bulletModel, fireTransform);
 
-        reloadTimer = 0;
+            reloadTimer = 0;
+        }
     }
 }

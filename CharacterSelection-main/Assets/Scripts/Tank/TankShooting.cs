@@ -12,10 +12,11 @@ public class TankShooting : MonoBehaviour
     private float maxLaunchForce = 30f;
     private float maxChargeTime = .75f;
 
+
     BulletController bulletController;
     BulletModel bulletModel;
     [SerializeField] BulletView bulletView;
-
+    TankController tankController;
 
     private string fireButton;
     private float currentLaunchForce;
@@ -33,6 +34,7 @@ public class TankShooting : MonoBehaviour
     {
         fireButton = "Fire1";
         chargeSpeed = (maxLaunchForce - minLaunchForce) / maxChargeTime;
+        
     }
 
     private void Update()
@@ -78,12 +80,13 @@ public class TankShooting : MonoBehaviour
 
     private void Fire()
     {
-        bulletModel = new BulletModel(currentLaunchForce);
 
-        bulletController = new BulletController(bulletView, bulletModel, fireTransform);
+        if (GameManager.instance.GetGameState() == GameState.Gameplay)
+        {
+            bulletModel = new BulletModel(currentLaunchForce);
 
-
-
+            bulletController = new BulletController(bulletView, bulletModel, fireTransform);
+        }
 
     }
 }

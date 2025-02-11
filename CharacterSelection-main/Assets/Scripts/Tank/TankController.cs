@@ -1,4 +1,5 @@
 ﻿
+using System;
 using UnityEngine;
 
 public class TankController
@@ -6,7 +7,6 @@ public class TankController
 
     private TankModel tankModel;
     private TankView tankView;
-    
 
     private Rigidbody rb;
 
@@ -23,7 +23,7 @@ public class TankController
 
         this.tankView.changeColor(tankModel.color);
 
-        
+
 
     }
 
@@ -42,5 +42,36 @@ public class TankController
     public TankModel GetTankModel()
     {
         return tankModel;
+    }
+
+    public void TakeDamage(int damage)
+    {
+        if (tankModel.health > 0)
+        {
+            tankModel.health -= damage;
+            //Debug.Log(tankModel.health);
+
+
+        }
+    }
+
+    public int GetHealth()
+    {
+        return tankModel.health;
+    }
+
+    public void SetPlayerState(PlayerState state)
+    {
+        GameManager.instance.SetPlayerState(state);
+    }
+
+    public PlayerState GetPlayerState()
+    {
+        return tankView.playerState;
+    }
+
+    public void SetGameState(GameState credits)
+    {
+        GameManager.instance.SetGameState(credits);
     }
 }

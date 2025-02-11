@@ -92,5 +92,8 @@ public class EnemyController
         return enemyModel.health;
     }
 
-  
+    public void ReduceEnemyCount()
+    {
+        GameManager.instance.ReduceEnemyCount();
+    }
 }
