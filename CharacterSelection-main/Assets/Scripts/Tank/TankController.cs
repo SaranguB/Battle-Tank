@@ -62,7 +62,7 @@ public class TankController
 
     public void SetPlayerState(PlayerState state)
     {
-        GameManager.instance.SetPlayerState(state);
+        GameManager.Instance.SetPlayerState(state);
     }
 
     public PlayerState GetPlayerState()
@@ -72,6 +72,6 @@ public class TankController
 
     public void SetGameState(GameState credits)
     {
-        GameManager.instance.SetGameState(credits);
+        GameManager.Instance.SetGameState(credits);
     }
 }

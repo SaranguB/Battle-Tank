@@ -306,6 +306,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyState: 0
   targetDistance: 10
+  collider: {fileID: 7328374573962612020}
   player: {fileID: 8189284322515885995, guid: 280e9b5c2e510b94fbd34d18af50425b, type: 3}
   particleEffect: {fileID: 2837955475542383176}
 --- !u!195 &-1861173755364398380

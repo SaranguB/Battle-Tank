@@ -13,7 +13,9 @@ public enum GameState
 public class GameManager : MonoBehaviour
 {
     private PlayerState playerState;
-    public static GameManager instance { get; private set; }
+
+    private static GameManager instance;
+    public static GameManager Instance {  get { return instance; } }
 
     [SerializeField] private GameObject playerLostUI;
     [SerializeField] private GameObject playerWonUI;

@@ -81,8 +81,10 @@ public class TankShooting : MonoBehaviour
     private void Fire()
     {
 
-        if (GameManager.instance.GetGameState() == GameState.Gameplay)
+        if (GameManager.Instance.GetGameState() == GameState.Gameplay)
         {
+            SoundManager.Instance.PlaySound(Sounds.SHOT);
+
             bulletModel = new BulletModel(currentLaunchForce);
 
             bulletController = new BulletController(bulletView, bulletModel, fireTransform);

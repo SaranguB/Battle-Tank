@@ -14,24 +14,24 @@ public class BulletView : MonoBehaviour
     {
         bulletParticleEffet.SetActive(true);
 
-       bulletExplosion = bulletParticleEffet.GetComponent<ParticleSystem>();
+        bulletExplosion = bulletParticleEffet.GetComponent<ParticleSystem>();
 
     }
 
-   
+
     void Update()
     {
-        
+
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        
+
 
         //Debug.Log("collided");
         bulletExplosion.Play();
 
-         collider.isTrigger = true;
+        collider.isTrigger = true;
         StartCoroutine(DestroyGameObject());
     }
 

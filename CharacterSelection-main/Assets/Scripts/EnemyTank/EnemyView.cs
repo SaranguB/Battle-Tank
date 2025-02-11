@@ -20,6 +20,8 @@ public class EnemyView : MonoBehaviour
 
     [SerializeField] private float targetDistance;
 
+    [SerializeField] private BoxCollider collider;
+
     public Transform player;
     private Rigidbody rb;
     private Vector3 targetDirection;
@@ -39,6 +41,7 @@ public class EnemyView : MonoBehaviour
     void Start()
     {
         enemyState = EnemyState.ALIVE;
+       
     }
 
 
@@ -55,11 +58,12 @@ public class EnemyView : MonoBehaviour
 
         if (enemyController.GetHealth() <= 0 && enemyState == EnemyState.ALIVE)
         {
-            
+            collider.isTrigger = true;
+            SoundManager.Instance.PlaySound(Sounds.TANK_EXPLOSION);
             enemyState = EnemyState.DEAD;
             enemyController.ReduceEnemyCount();
             tankExplosion.Play();
-
+            
             StartCoroutine(DestroyEnemyTank(.2f));
 
         }

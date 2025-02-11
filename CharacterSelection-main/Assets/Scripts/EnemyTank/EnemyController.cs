@@ -94,6 +94,6 @@ public class EnemyController
 
     public void ReduceEnemyCount()
     {
-        GameManager.instance.ReduceEnemyCount();
+        GameManager.Instance.ReduceEnemyCount();
     }
 }
