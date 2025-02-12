@@ -5,24 +5,25 @@ using UnityEngine.UI;
 
 public class TankShooting : MonoBehaviour
 {
-    [SerializeField] private Rigidbody shell;
+
     [SerializeField] private Transform fireTransform;
     [SerializeField] private Slider aimSlider;
-    [SerializeField] private float minLaunchForce = 15f;
-    [SerializeField] private float maxLaunchForce = 30f;
-    [SerializeField] float maxChargeTime = .75f;
+    private float minLaunchForce = 15f;
+    private float maxLaunchForce = 30f;
+    private float maxChargeTime = .75f;
 
-
+    BulletController bulletController;
+    BulletModel bulletModel;
+    [SerializeField] BulletView bulletView;
+    TankController tankController;
 
     private string fireButton;
     private float currentLaunchForce;
     private float chargeSpeed;
     private bool fired;
-
     private void OnEnable()
     {
-        //Debug.Log("enabled");
-        currentLaunchForce = minLaunchForce;
+        SetCurrentLaunchForce(minLaunchForce);
         aimSlider.value = minLaunchForce;
     }
 
@@ -34,18 +35,20 @@ public class TankShooting : MonoBehaviour
 
     private void Update()
     {
-
         aimSlider.value = minLaunchForce;
 
         if (currentLaunchForce >= maxLaunchForce && !fired)
         {
-            currentLaunchForce = maxLaunchForce;
+            SetCurrentLaunchForce(maxLaunchForce);
             Fire();
+            fired = true;
+            SetCurrentLaunchForce(minLaunchForce);
         }
+
         else if (Input.GetButtonDown(fireButton))
         {
             fired = false;
-            currentLaunchForce = minLaunchForce;
+            SetCurrentLaunchForce(minLaunchForce);
         }
         else if (Input.GetButton(fireButton) && !fired)
         {
@@ -55,18 +58,24 @@ public class TankShooting : MonoBehaviour
         else if (Input.GetButtonUp(fireButton) && !fired)
         {
             Fire();
+            fired = true;
+            SetCurrentLaunchForce(minLaunchForce);
         }
 
     }
-
+    void SetCurrentLaunchForce(float force)
+    {
+        currentLaunchForce = force;
+    }
     private void Fire()
     {
-        fired = true;
+        if (GameManager.Instance.GetGameState() == GameState.Gameplay)
+        {
+            SoundManager.Instance.PlaySound(Sounds.SHOT);
 
-        Rigidbody shellInstance = Instantiate(shell, fireTransform.position, fireTransform.rotation) as Rigidbody;
+            bulletModel = new BulletModel(currentLaunchForce);
 
-        shellInstance.velocity = currentLaunchForce * fireTransform.forward;
-
-        currentLaunchForce = minLaunchForce;
+            bulletController = new BulletController(bulletView, bulletModel, fireTransform);
+        }
     }
 }

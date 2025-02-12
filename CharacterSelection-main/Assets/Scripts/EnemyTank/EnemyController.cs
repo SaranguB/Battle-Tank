@@ -1,24 +1,21 @@
 ﻿
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemyController
 {
     private EnemyModel enemyModel;
     private EnemyView enemyView;
 
-    private Rigidbody enemyRB;
     private Vector3 targetDirection;
+    private NavMeshAgent navMeshAgent;
 
     public EnemyController(EnemyView enemyView, EnemyModel enemyModel, BoxCollider spawnArea, Transform player)
     {
         this.enemyModel = enemyModel;
-
         this.enemyView = SpawnEnemy(enemyView, spawnArea);
-
-        enemyRB = this.enemyView.GetRigidBody();
-
+        navMeshAgent = this.enemyView.GetComponent<NavMeshAgent>();
         this.enemyView.SetEnemyController(this, player);
-    
     }
 
     public EnemyView SpawnEnemy(EnemyView enemyView, BoxCollider spawnArea)
@@ -33,7 +30,6 @@ public class EnemyController
         Bounds bounds = spawnArea.bounds;
 
         float randomX = Random.Range(bounds.min.x, bounds.max.x);
-
         float randomZ = Random.Range(bounds.min.z, bounds.max.z);
 
         return new Vector3(randomX, 0, randomZ);
@@ -42,37 +38,50 @@ public class EnemyController
 
     public void UpdateTargetDirection()
     {
-        if(!enemyView.isPlayerFound)
+
+        if (!enemyView.isPlayerFound)
         {
-            targetDirection = enemyView.directionToPlayer;
+            navMeshAgent.isStopped = false;
+            navMeshAgent.SetDestination(enemyView.player.position);
         }
         else
         {
-            targetDirection = Vector3.zero;
+            navMeshAgent.isStopped = true;
+
+            targetDirection = enemyView.directionToPlayer;
+            navMeshAgent.SetDestination(enemyView.transform.position);
+
         }
     }
 
     public void RotateTowardsTarget()
     {
-        if(targetDirection == Vector3.zero)
+        if (targetDirection == Vector3.zero)
         {
             return;
         }
 
-        Quaternion targetRotation = Quaternion.LookRotation(targetDirection);
-        Quaternion rotation = Quaternion.RotateTowards(enemyView.transform.rotation, targetRotation, enemyModel.rotationSpeed *Time.deltaTime);
-        enemyRB.MoveRotation(rotation);
+        if (enemyView.isPlayerFound)
+        {
+            
+            Quaternion targetRotation = Quaternion.LookRotation(targetDirection);
+            Quaternion rotation = Quaternion.RotateTowards(enemyView.transform.rotation, targetRotation, enemyModel.rotationSpeed * Time.deltaTime);
+            enemyView.transform.rotation = rotation;
+        }
     }
 
-    public void SetVelocity()
+    public void TakeDamage(int Damage)
     {
-        if(targetDirection == Vector3.zero)
-        {
-            enemyRB.velocity = Vector3.zero;
-        }
-        else
-        {
-            enemyRB.velocity = enemyView.transform.forward * enemyModel.speed;
-        }
+        enemyModel.health -= Damage;
+    }
+
+    public int GetHealth()
+    {
+        return enemyModel.health;
+    }
+
+    public void ReduceEnemyCount()
+    {
+        GameManager.Instance.ReduceEnemyCount();
     }
 }

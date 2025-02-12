@@ -1,18 +1,14 @@
-﻿
-using UnityEngine;
+﻿using UnityEngine;
 
 public class TankController
 {
 
     private TankModel tankModel;
     private TankView tankView;
-    
-
     private Rigidbody rb;
 
     public TankController(TankModel tankModel, TankView tankView)
     {
-
         this.tankModel = tankModel;
         this.tankView = GameObject.Instantiate<TankView>(tankView);
 
@@ -22,9 +18,6 @@ public class TankController
         this.tankView.SetTrankController(this);
 
         this.tankView.changeColor(tankModel.color);
-
-        
-
     }
 
     public void Move(float movement, float movementSpeed)
@@ -42,5 +35,33 @@ public class TankController
     public TankModel GetTankModel()
     {
         return tankModel;
+    }
+
+    public void TakeDamage(int damage)
+    {
+        if (tankModel.health > 0)
+        {
+            tankModel.health -= damage;
+        }
+    }
+
+    public int GetHealth()
+    {
+        return tankModel.health;
+    }
+
+    public void SetPlayerState(PlayerState state)
+    {
+        GameManager.Instance.SetPlayerState(state);
+    }
+
+    public PlayerState GetPlayerState()
+    {
+        return tankView.playerState;
+    }
+
+    public void SetGameState(GameState credits)
+    {
+        GameManager.Instance.SetGameState(credits);
     }
 }

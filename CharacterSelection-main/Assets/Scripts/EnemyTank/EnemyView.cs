@@ -5,26 +5,43 @@ using UnityEngine;
 
 public class EnemyView : MonoBehaviour
 {
+
+    public enum EnemyState
+    {
+        DEFAULT,
+        ALIVE,
+        DEAD,
+    }
+    public EnemyState enemyState;
+
     private EnemyController enemyController;
     public Vector3 directionToPlayer { get; private set; }
     public bool isPlayerFound { get; private set; }
 
     [SerializeField] private float targetDistance;
 
-    [SerializeField] private Transform player;
+    [SerializeField] private BoxCollider collider;
+
+    public Transform player;
     private Rigidbody rb;
     private Vector3 targetDirection;
 
+    [SerializeField] private GameObject particleEffect;
+    ParticleSystem tankExplosion;
 
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
+
+        tankExplosion = particleEffect.GetComponent<ParticleSystem>();
+
     }
 
     void Start()
     {
-
+        enemyState = EnemyState.ALIVE;
+       
     }
 
 
@@ -33,19 +50,52 @@ public class EnemyView : MonoBehaviour
 
         if (player != null)
         {
-            Vector3 enemyToPlayerVector = player.position - transform.position;
-            directionToPlayer = enemyToPlayerVector.normalized;
-
-            if (enemyToPlayerVector.magnitude <= targetDistance)
+            if (player.GetComponent<TankView>() != null)
             {
-                isPlayerFound = true;
-            }
-            else
-            {
-                isPlayerFound = false;
+                CheckForPlayer();
             }
         }
 
+        if (enemyController.GetHealth() <= 0 && enemyState == EnemyState.ALIVE)
+        {
+            collider.isTrigger = true;
+            SoundManager.Instance.PlaySound(Sounds.TANK_EXPLOSION);
+            enemyState = EnemyState.DEAD;
+            enemyController.ReduceEnemyCount();
+            tankExplosion.Play();
+            
+            StartCoroutine(DestroyEnemyTank(.2f));
+
+        }
+
+    }
+
+    private IEnumerator DestroyEnemyTank(float time)
+    {
+        yield return new WaitForSeconds(time);
+
+        Destroy(gameObject);
+
+    }
+
+    private void CheckForPlayer()
+    {
+        Vector3 enemyToPlayerVector = player.position - transform.position;
+        directionToPlayer = enemyToPlayerVector.normalized;
+        float distanceToPlayer = enemyToPlayerVector.magnitude;
+
+        float buffer = .2f;
+
+        if (distanceToPlayer <= targetDistance - buffer)
+        {
+
+            isPlayerFound = true;
+        }
+        else if (distanceToPlayer >= targetDistance + buffer)
+        {
+
+            isPlayerFound = false;
+        }
     }
 
     private void FixedUpdate()
@@ -59,16 +109,30 @@ public class EnemyView : MonoBehaviour
         {
             enemyController.UpdateTargetDirection();
             enemyController.RotateTowardsTarget();
-            enemyController.SetVelocity();
+            //enemyController.SetVelocity();
         }
     }
 
     public void SetEnemyController(EnemyController enemyController, Transform player)
     {
+
         // Debug.Log($"SetEnemyController called on: {gameObject.name}");
+
+        enemyState = EnemyState.ALIVE;
 
         this.enemyController = enemyController;
         this.player = player;
+    }
+
+    private void OnCollisionEnter(Collision other)
+    {
+        if (other.gameObject.GetComponent<BulletView>() != null &&
+            other.gameObject.layer != LayerMask.NameToLayer("EnemyShell"))
+        {
+
+            enemyController.TakeDamage(10);
+
+        }
     }
 
     public Rigidbody GetRigidBody()
